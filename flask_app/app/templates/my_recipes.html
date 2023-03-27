@@ -1,0 +1,38 @@
+<!-- Quelle: Von Bootstrap übernommen und angepasst https://getbootstrap.com/docs/5.2/getting-started/introduction/   -->
+<!-- Erstellt die Meine Rezepte Site und zeigt alle Rezepte oder ein Link zu create_recipe Site an wenn noch keine Rezepte vorhanden sind  -->
+{% extends 'layout.html' %}
+{% block content %}
+<div class="container ">
+    <h1 class="text-center">{{title}}</h1>
+    {% if recipes %}
+       
+            {% for recipe in recipes %}
+                <div class="card p-2 mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{recipe['title']}}</h5>
+                        <hr class="border border-primary border-3 opacity-75">
+                        <h6 class="card-subtitle mb-2 text-muted">Autor : {{current_user['username']}}</h6>
+                        <hr class="border border-primary border-3 opacity-75">
+                        <p card="card-text">{{recipe['preparation']}}</p>
+                        {% if recipe['ingredients'] %}
+                        <h6 class="card-subtitle mb-2">Zutaten : </h6>
+                        <hr class="border border-primary border-3 opacity-75">
+                        <ul>
+                            {% for ingredient in recipe['ingredients'] %}
+                                <li>{{ingredient['name']}}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                    <div class="container">
+                        <a class="btn btn-danger " href="/delete_recipe/{{recipe.id}}"> Löschen</a>
+                        <a class="btn btn-info " href="/edit_recipe/{{recipe.id}}">Edit </a>
+                    </div>
+                </div>
+            {% endfor %}
+        
+    {% else %}
+        <p class="text-center">Momentan sind noch keine Rezepte Vorhanden ! <a href="{{url_for('create_recipe')}}">Erstelle ein Rezept</a></p>
+    {% endif %}
+</div>
+{% endblock %}

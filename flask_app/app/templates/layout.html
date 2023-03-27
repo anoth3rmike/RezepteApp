@@ -1,0 +1,64 @@
+<!-- Quelle: Von Bootstrap übernommen und angepasst https://getbootstrap.com/docs/5.2/getting-started/introduction/ -->
+<!-- Wird als Grundlage für alle Sites verwendet und liefert den grafischen Aufbau -->
+<!DOCTYPE html>
+<html lang="de-ch">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>      
+        {% if title %} 
+        {{title}} 
+        {% else %} 
+        Welcome to myHomePage
+        {% endif %}
+    </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous" defer></script>
+
+</head>
+<!-- Definiert die Navigationsleiste der Webseite -->
+<body>
+    <nav class="navbar navbar-expand-lg  bg-primary ">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Rezepte</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav justify-content-between">
+              
+                  {% if current_user.is_authenticated %}
+                  <a class="nav-link active " aria-current="page" href="{{url_for('index')}}">Home</a>
+                  <a class="nav-link " href="{{url_for('create_recipe')}}">Erstelle neue Rezepte</a>
+                  <a class="nav-link" href="{{url_for('my_recipes')}}">Meine Rezepte</a>
+                  <a class="nav-link" href="{{url_for('logout')}}">Abmelden</a>
+                  {% else %}
+                  <a class="nav-link" href="{{url_for('login')}}">Anmelden</a>
+                  <a class="nav-link" href="{{url_for('register')}}">Registrieren</a>
+                  {% endif %}
+             
+            </div>
+          </div>
+        </div>
+      </nav>
+
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <!--Bindet Meldungen von der Alerts Funktion ein und macht sie "wegklickbar"-->
+        {% for category, message in messages %}
+        <div  class="{{ category }} alert-dismissible fade show" role="alert">
+          <div>{{ message }}</div>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}
+    {% endblock %}
+</body>
+
+</html>

@@ -1,0 +1,8 @@
+<!-- Quelle: Von Bootstrap übernommen und angepasst https://getbootstrap.com/docs/5.2/getting-started/introduction/ -->
+<!-- Erstellt die Home Site und gibt Willkommen <Username> aus -->
+{% extends 'layout.html' %}
+
+{% block content %}
+<h1 class="text-center mb-2">Home</h1>
+<h2 class="text-center">Wilkommen {{current_user.username}}</h2>
+{% endblock %}

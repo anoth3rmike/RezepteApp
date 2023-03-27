@@ -1,0 +1,45 @@
+version: '3.6'
+
+services:
+  # Quelle: https://github.com/wmnnd/nginx-certbot
+  nginx:
+    image: nginx:1.15-alpine
+    restart: unless-stopped
+    volumes:
+      - ./data/nginx:/etc/nginx/conf.d
+      - ./data/certs:/etc/letsencrypt
+    ports:
+      - "80:80"
+      - "443:443"
+  #  depends_on:
+   #   flask_app:
+    #    condition: service_started
+  mysql:
+    image: mariadb
+    container_name: mysql
+    restart: always
+    environment:
+      - MYSQL_DATABASE=recipie_db
+      - MYSQL_PASSWORD=password
+      - MYSQL_USER=user
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+    volumes:
+      - ./db:/var/lib/mysql
+    # Quelle: Von Jonas Belbel übernommen
+    healthcheck:  
+      test: ["CMD", "mysql", "-u", "user", "-ppassword"] 
+      interval: 4s
+      timeout: 5s
+      retries: 5
+  flask_app:
+    build: .
+    container_name: flask_app
+    environment:
+      FLASK_APP: app.py
+      FLASK_RUN_HOST: 0.0.0.0
+      DATABASE_URL: "mysql+pymysql://user:password@mysql/recipie_db"
+    volumes:
+      - ./migrations:/app/migrations
+    depends_on:
+      mysql:
+        condition: service_healthy

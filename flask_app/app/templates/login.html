@@ -1,0 +1,39 @@
+<!-- Quelle: Von Bootstrap übernommen https://getbootstrap.com/docs/5.2/getting-started/introduction/   -->
+<!-- Erstellt die Login Site -->
+{% extends 'layout.html' %}
+
+{% block content%}
+<h1 class="text-center ">{{title}}</h1>
+
+<div class="container">
+    <form class="form" action="/login" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <div class="form-group col-12">
+            {{ form.username.label }}
+            {{ form.username(size=32,class_='form-control',autocomplete='off') }}
+            {% for error in form.username.errors %}
+            <div class="text-danger" >{{ error  }}</div>
+            {% endfor %}
+        </div>
+    
+        <div class="form-group col-12">
+            {{ form.password.label }}
+            {{ form.password(size=32,class_='form-control',autocomplete='off') }}
+            {% for error in form.password.errors %}
+            <div class="text-danger" >{{ error  }}</div>
+            {% endfor %}
+        </div>
+    
+        <div class="form-group col-2">
+            <p>{{ form.remember_me(class_='form-check-input') }}  <span class="form-check-label">{{ form.remember_me.label }}</span></p>
+        </div>
+    
+        <div>
+            <p>{{ form.submit(class_='btn btn-primary') }}</p>
+        </div>
+    
+    
+    
+    </form>
+</div>
+{% endblock %}
