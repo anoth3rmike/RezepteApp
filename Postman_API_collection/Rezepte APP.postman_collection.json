@@ -1,0 +1,261 @@
+{
+	"info": {
+		"_postman_id": "ceb219a0-0cc1-4703-b4ab-6b01d61232a4",
+		"name": "Rezepte APP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26272211"
+	},
+	"item": [
+		{
+			"name": "neuer User erstellen",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\"username\":\"test5\",\"password\":\"1234\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://rezepte.vicdtest.ch/api/users",
+					"protocol": "https",
+					"host": [
+						"rezepte",
+						"vicdtest",
+						"ch"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Anzeigen aller User",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://rezepte.vicdtest.ch/api/users",
+					"protocol": "https",
+					"host": [
+						"rezepte",
+						"vicdtest",
+						"ch"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Spezifischer User",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://rezepte.vicdtest.ch/api/users/<ID>",
+					"protocol": "https",
+					"host": [
+						"rezepte",
+						"vicdtest",
+						"ch"
+					],
+					"path": [
+						"api",
+						"users",
+						"<ID>"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "alle Rezepte Anzeigen",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://rezepte.vicdtest.ch/api/recipes",
+					"protocol": "https",
+					"host": [
+						"rezepte",
+						"vicdtest",
+						"ch"
+					],
+					"path": [
+						"api",
+						"recipes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "alle Rezepte eines spezifischen Users Anzeigen",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://rezepte.vicdtest.ch/api/users/<ID>/recipes",
+					"protocol": "https",
+					"host": [
+						"rezepte",
+						"vicdtest",
+						"ch"
+					],
+					"path": [
+						"api",
+						"users",
+						"<ID>",
+						"recipes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Rezept einem User hinzufügen",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "test02",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "12345",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Beispielrezept4\",\r\n    \"preparation\": \"Wasser heiss machen \\r\\nNudeln in heissem Wasser mit Salz kochen\",\r\n    \"ingredients\": [\r\n        {\r\n            \"name\": \"Wasser = heiss \\r\\nNudeln = lang\"   \r\n        },\r\n        {\r\n            \"name\": \" dünn \\r\\nTomaten = püriert\\r\\nund sonnstiges\"\r\n        }\r\n    ]\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://rezepte.vicdtest.ch/api/users/<ID>/recipes",
+					"protocol": "https",
+					"host": [
+						"rezepte",
+						"vicdtest",
+						"ch"
+					],
+					"path": [
+						"api",
+						"users",
+						"<ID>",
+						"recipes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Rezept eines Users löschen",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "test02",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "12345",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://rezepte.vicdtest.ch/api/users/<ID>/recipes/<ID>",
+					"protocol": "https",
+					"host": [
+						"rezepte",
+						"vicdtest",
+						"ch"
+					],
+					"path": [
+						"api",
+						"users",
+						"<ID>",
+						"recipes",
+						"<ID>"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Rezept eines Users editieren",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "test02",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "12345",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t    \"title\": \"Beispielrezept-editiert\",\r\n\t    \"preparation\": \"Wasser erhitzen \\r\\nNudeln in heissem Wasser 10 Minuten kochen\",\r\n\t    \"ingredients\": [\r\n\t        {\r\n\t            \"name\": \"Topf mit Wasser \"   \r\n\t        },\r\n\t        {\r\n\t            \"name\": \" 250 Gramm Nudeln\"\r\n\t        }\r\n\t    ]\r\n\t}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://rezepte.vicdtest.ch/api/users/3/recipes/5",
+					"protocol": "https",
+					"host": [
+						"rezepte",
+						"vicdtest",
+						"ch"
+					],
+					"path": [
+						"api",
+						"users",
+						"3",
+						"recipes",
+						"5"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
